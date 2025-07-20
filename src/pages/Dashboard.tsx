@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { LifeOSSidebar } from "@/components/dashboard/LifeOSSidebar";
 import { OnboardingFlow } from "@/components/auth/OnboardingFlow";
+import { ChatInterface } from "@/components/chat/ChatInterface";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -20,6 +21,8 @@ export default function Dashboard() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const params = useParams();
+  const isChat = window.location.pathname.includes('/chat');
 
   useEffect(() => {
     checkUser();
@@ -137,7 +140,15 @@ export default function Dashboard() {
       />
       
       <main className="flex-1 overflow-hidden">
-        <Outlet context={{ profile, projects }} />
+        {isChat && user && profile ? (
+          <ChatInterface 
+            projectId={params.projectId} 
+            userId={user.id}
+            userProfile={profile}
+          />
+        ) : (
+          <Outlet context={{ profile, projects }} />
+        )}
       </main>
     </div>
   );

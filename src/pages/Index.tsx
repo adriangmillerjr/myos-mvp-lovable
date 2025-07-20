@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar } from "lucide-react";
+import { OrbitalInterface } from "@/components/ui/orbital-interface";
 
 const Index = () => {
   return (
@@ -11,11 +12,7 @@ const Index = () => {
       <div className="relative overflow-hidden">
         <div className="lifeos-container py-24 lg:py-32">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary text-primary-foreground mb-8">
-              <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-                <div className="w-5 h-5 rounded-full bg-primary-foreground"></div>
-              </div>
-            </div>
+            <OrbitalInterface />
             
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-foreground">

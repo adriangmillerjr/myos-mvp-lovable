@@ -28,7 +28,7 @@ function App() {
               <Route path="daily" element={<div className="p-8 text-center text-muted-foreground">Daily Summary coming soon...</div>} />
               <Route path="tasks" element={<div className="p-8 text-center text-muted-foreground">Master Tasks coming soon...</div>} />
               <Route path="journal" element={<div className="p-8 text-center text-muted-foreground">Journal coming soon...</div>} />
-              <Route path="chat/:projectId" element={<Chat />} />
+              <Route path="chat/:projectId" element={<div />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

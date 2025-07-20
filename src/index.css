@@ -7,57 +7,57 @@
 
 @layer base {
   :root {
-    /* Dark sophisticated palette inspired by the reference */
-    --background: 210 24% 8%;           /* Deep charcoal background */
-    --foreground: 210 11% 85%;          /* Light gray text */
+    /* FOUNDERS BLACK THEME */
+    --background: 0 0% 0%;              /* Jet Black */
+    --foreground: 0 0% 100%;            /* White text */
     
-    /* Primary brand colors */
-    --primary: 221 83% 53%;             /* Sophisticated blue primary */
-    --primary-foreground: 210 40% 98%;  /* Near white on primary */
+    /* Primary brand colors - Blush Taupe */
+    --primary: 18 15% 82%;              /* Blush Taupe #D7B8AD */
+    --primary-foreground: 0 0% 0%;      /* Black text on primary */
     
     /* Refined surfaces */
-    --card: 210 24% 10%;                /* Slightly lighter than background */
-    --card-foreground: 210 11% 85%;     /* Light gray on cards */
-    --surface: 210 24% 9%;              /* Subtle surface variation */
-    --surface-secondary: 210 24% 11%;   /* Secondary surface */
+    --card: 0 0% 0%;                    /* Black cards */
+    --card-foreground: 0 0% 100%;       /* White text on cards */
+    --surface: 0 0% 3%;                 /* Very dark surface */
+    --surface-secondary: 0 0% 6%;       /* Slightly lighter surface */
     
     /* Interactive elements */
-    --popover: 210 24% 10%;
-    --popover-foreground: 210 11% 85%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
     
-    --secondary: 210 24% 16%;           /* Muted secondary */
-    --secondary-foreground: 210 11% 85%;
+    --secondary: 0 0% 5%;               /* Dark secondary */
+    --secondary-foreground: 0 0% 100%;
     
-    --muted: 210 24% 16%;               /* Muted backgrounds */
-    --muted-foreground: 210 11% 65%;    /* Muted text */
+    --muted: 0 0% 8%;                   /* Muted backgrounds */
+    --muted-foreground: 0 0% 60%;       /* Muted text */
     
-    /* Sophisticated accent */
-    --accent: 210 24% 16%;              /* Subtle accent */
-    --accent-foreground: 210 11% 85%;
-    --accent-soft: 210 24% 14%;         /* Even softer accent */
+    /* Sophisticated accent - Blush Taupe */
+    --accent: 18 15% 82%;               /* Blush Taupe accent */
+    --accent-foreground: 0 0% 0%;       /* Black text on accent */
+    --accent-soft: 18 10% 20%;          /* Darker taupe */
     
-    /* Status colors with refinement */
-    --destructive: 0 84% 60%;           /* Clean red */
-    --destructive-foreground: 210 40% 98%;
-    --success: 142 76% 36%;             /* Refined green */
-    --success-foreground: 210 40% 98%;
-    --warning: 38 92% 50%;              /* Balanced orange */
-    --warning-foreground: 210 24% 8%;
+    /* Status colors */
+    --destructive: 0 84% 60%;           /* Red */
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 76% 36%;             /* Green */
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;              /* Orange */
+    --warning-foreground: 0 0% 0%;
     
-    /* Refined borders and inputs */
-    --border: 210 24% 20%;              /* Subtle borders */
-    --input: 210 24% 20%;               /* Input borders */
-    --ring: 221 83% 53%;                /* Focus rings match primary */
+    /* Borders and inputs */
+    --border: 0 0% 15%;                 /* Dark borders */
+    --input: 0 0% 10%;                  /* Input backgrounds */
+    --ring: 18 15% 82%;                 /* Taupe focus rings */
     
-    /* Chat colors with sophistication */
-    --chat-user: 221 83% 53%;           /* User messages in primary */
-    --chat-assistant: 210 24% 12%;      /* Assistant in subtle gray */
-    --chat-system: 210 24% 14%;         /* System messages */
+    /* Chat colors */
+    --chat-user: 18 15% 82%;            /* User messages in taupe */
+    --chat-assistant: 0 0% 8%;          /* Assistant in dark gray */
+    --chat-system: 0 0% 12%;            /* System messages */
     
-    /* Sophisticated shadows */
-    --shadow-soft: 0 2px 8px hsl(210 24% 4% / 0.3);
-    --shadow-medium: 0 4px 12px hsl(210 24% 4% / 0.4), 0 2px 4px hsl(210 24% 4% / 0.2);
-    --shadow-large: 0 10px 24px hsl(210 24% 4% / 0.5), 0 4px 8px hsl(210 24% 4% / 0.3);
+    /* Taupe-tinted shadows */
+    --shadow-soft: 0 2px 8px rgba(215, 184, 173, 0.1);
+    --shadow-medium: 0 4px 12px rgba(215, 184, 173, 0.15), 0 2px 4px rgba(215, 184, 173, 0.1);
+    --shadow-large: 0 10px 24px rgba(215, 184, 173, 0.2), 0 4px 8px rgba(215, 184, 173, 0.15);
     
     /* Smooth transitions */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -65,15 +65,15 @@
     
     --radius: 8px;
 
-    /* Sidebar with sophisticated dark theme */
-    --sidebar-background: 210 24% 7%;   /* Darker sidebar */
-    --sidebar-foreground: 210 11% 85%;
-    --sidebar-primary: 221 83% 53%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 24% 12%;
-    --sidebar-accent-foreground: 210 11% 85%;
-    --sidebar-border: 210 24% 16%;
-    --sidebar-ring: 221 83% 53%;
+    /* Sidebar with founders black theme */
+    --sidebar-background: 0 0% 0%;      /* Black sidebar */
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 18 15% 82%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 8%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 18 15% 82%;
   }
 
   .light {
