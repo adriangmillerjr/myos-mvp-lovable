@@ -11,7 +11,8 @@ import {
   Plus,
   Settings,
   Search,
-  MessageSquare
+  MessageSquare,
+  User
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,6 +78,12 @@ export function LifeOSSidebar({ projects, onCreateProject, className }: LifeOSSi
       href: "/dashboard/journal", 
       icon: BookOpen,
       description: "Personal reflections" 
+    },
+    { 
+      name: "Profile", 
+      href: "/dashboard/profile", 
+      icon: User,
+      description: "Your account settings" 
     }
   ];
 
@@ -95,13 +102,15 @@ export function LifeOSSidebar({ projects, onCreateProject, className }: LifeOSSi
             </div>
             <h1 className="font-semibold text-sidebar-foreground text-lg">LifeOS.ai</h1>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-9 w-9 p-0 hover:bg-sidebar-accent"
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
+          <Link to="/dashboard/settings">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-9 w-9 p-0 hover:bg-sidebar-accent"
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
         
         {/* Search */}

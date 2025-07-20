@@ -221,7 +221,7 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
                 <Sparkles className="w-5 h-5 text-primary" />
                 <div>
                   <h1 className="text-lg font-semibold text-foreground">
-                    {currentProject ? currentProject.name : 'Global Chat'}
+                    {currentProject ? currentProject.name : 'Chat'}
                   </h1>
                   <p className="text-sm text-muted-foreground">
                     AI-powered clarity and productivity guidance
@@ -247,10 +247,10 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
                   <Bot className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">
-                  Welcome to LifeOS.ai
+                  How can I help you today?
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                  Your AI-powered productivity operating system. Start a conversation to unlock clarity and accelerate your progress.
+                  Start a conversation to unlock clarity and accelerate your progress.
                 </p>
                 <div className="text-sm text-muted-foreground">
                   Powered by {selectedModel} • Context-aware responses
