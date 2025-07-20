@@ -2,104 +2,157 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bot, Target, Zap, ArrowRight, LifeBuoy } from "lucide-react";
+import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar } from "lucide-react";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Clean Hero Section */}
-      <div className="relative">
-        <div className="max-w-6xl mx-auto px-6 py-24">
-          <div className="text-center space-y-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-foreground text-background mb-8">
-              <LifeBuoy className="h-8 w-8" />
+      {/* Sophisticated Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="lifeos-container py-24 lg:py-32">
+          <div className="text-center space-y-8 max-w-4xl mx-auto">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary text-primary-foreground mb-8">
+              <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
+                <div className="w-5 h-5 rounded-full bg-primary-foreground"></div>
+              </div>
             </div>
             
             <div className="space-y-6">
-              <h1 className="text-6xl font-bold tracking-tight text-foreground">
+              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-foreground">
                 LifeOS.ai
               </h1>
               
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Your personalized AI productivity platform. Chat with specialized agents that understand your vision, values, and goals to help you achieve your highest potential.
+              <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Your personalized AI productivity operating system. Master clarity, execute intelligently, and align every action with your Mount Everest vision.
               </p>
             </div>
             
-            <div className="flex items-center justify-center gap-4 pt-4">
-              <Link to="/chat">
-                <Button size="lg" className="h-12 px-8 text-base font-medium">
-                  Start Chatting
-                  <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+              <Link to="/dashboard">
+                <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
+                  Enter LifeOS.ai
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="h-12 px-8 text-base">
-                Learn More
+              <Button size="lg" variant="secondary" className="lifeos-button-secondary h-14 px-8 text-lg">
+                Watch Demo
               </Button>
             </div>
           </div>
         </div>
+
+        {/* Subtle background decoration */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/3 rounded-full blur-3xl"></div>
+        </div>
       </div>
 
-      {/* Clean Features Section */}
-      <div className="border-t border-border bg-surface/50">
-        <div className="max-w-6xl mx-auto px-6 py-24">
+      {/* Sophisticated Features Section */}
+      <div className="border-t border-border bg-surface/30">
+        <div className="lifeos-container py-24">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl font-bold text-foreground">
-              Specialized AI Agents
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+              Unified Productivity Operating System
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Each agent is designed with a specific purpose, following focused frameworks for effective assistance.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Six integrated modules working together to transform how you think, plan, and execute.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* ClarityOS */}
-            <Card className="border-border shadow-soft hover:shadow-medium transition-shadow">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Projects */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
               <CardContent className="p-8">
-                <div className="w-12 h-12 bg-foreground rounded-lg flex items-center justify-center mb-6">
-                  <Target className="h-6 w-6 text-background" />
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Target className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">ClarityOS</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Projects</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Life mission and vision clarity tools. Align your daily actions with your Mount Everest vision.
+                  Organize your life into focused workspaces. Each project maintains its own context, tasks, and AI agent configurations.
                 </p>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground">🎯 ClarityOS__GPT</div>
-                  <div className="text-sm font-medium text-foreground">⚡ ValuesAdvisor</div>
+                <div className="text-sm font-medium text-primary">
+                  Workspace Management
                 </div>
               </CardContent>
             </Card>
 
-            {/* WorkOS */}
-            <Card className="border-border shadow-soft hover:shadow-medium transition-shadow">
+            {/* KPI Dashboard */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
               <CardContent className="p-8">
-                <div className="w-12 h-12 bg-foreground rounded-lg flex items-center justify-center mb-6">
-                  <Zap className="h-6 w-6 text-background" />
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <BarChart3 className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">WorkOS</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-3">KPI Dashboard</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Productivity and task management. Optimize your workflow and maintain deep focus.
+                  Track what matters most. Revenue, content creation, signups, and custom metrics aligned with your Mount Everest vision.
                 </p>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground">📋 TaskMaster</div>
-                  <div className="text-sm font-medium text-foreground">🎯 FocusCoach</div>
+                <div className="text-sm font-medium text-primary">
+                  Performance Tracking
                 </div>
               </CardContent>
             </Card>
 
-            {/* Strategy Advisors */}
-            <Card className="border-border shadow-soft hover:shadow-medium transition-shadow">
+            {/* Master Tasks */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
               <CardContent className="p-8">
-                <div className="w-12 h-12 bg-foreground rounded-lg flex items-center justify-center mb-6">
-                  <Bot className="h-6 w-6 text-background" />
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <CheckSquare className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Strategy Advisors</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Master Tasks</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  High-level strategic guidance. Get wise counsel for complex decisions and long-term planning.
+                  Every task scored for Cash Proximity (CPS) and Everest alignment. Focus on what truly moves the needle.
                 </p>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground">🧙‍♂️ AdvisorGPT__Sage</div>
-                  <div className="text-sm font-medium text-foreground">🏗️ DecisionArchitect</div>
+                <div className="text-sm font-medium text-primary">
+                  Intelligent Prioritization
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Weekly Reports */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Calendar className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Weekly Reports</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  AI-generated insights on task completion, bottlenecks, and strategic recommendations for the week ahead.
+                </p>
+                <div className="text-sm font-medium text-primary">
+                  Strategic Insights
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Journal */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <BookOpen className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Journal</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Daily reflections connected to your tasks and goals. Track energy, focus, and personal growth over time.
+                </p>
+                <div className="text-sm font-medium text-primary">
+                  Personal Insights
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* AI Orchestration */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Zap className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">AI Orchestration</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Multiple specialized AI agents working together. ClarityOS, Sage, Health, and more activate based on context.
+                </p>
+                <div className="text-sm font-medium text-primary">
+                  Intelligent Assistance
                 </div>
               </CardContent>
             </Card>
@@ -107,19 +160,19 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Clean CTA Section */}
+      {/* Sophisticated CTA Section */}
       <div className="border-t border-border">
-        <div className="max-w-4xl mx-auto px-6 py-24 text-center space-y-8">
-          <h2 className="text-3xl font-bold text-foreground">
-            Ready to unlock your potential?
+        <div className="lifeos-container py-24 text-center space-y-8">
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+            Ready to master your potential?
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Start chatting with AI agents that truly understand your unique vision and goals.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Join the operating system that aligns your daily actions with your Mount Everest vision.
           </p>
-          <Link to="/chat">
-            <Button size="lg" className="h-12 px-8 text-base font-medium">
-              Launch LifeOS.ai
-              <ArrowRight className="ml-2 h-4 w-4" />
+          <Link to="/dashboard">
+            <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
+              Start Your Journey
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
         </div>
