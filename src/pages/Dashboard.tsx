@@ -145,6 +145,8 @@ export default function Dashboard() {
             projectId={params.projectId} 
             userId={user.id}
             userProfile={profile}
+            projects={projects}
+            onCreateProject={handleCreateProject}
           />
         ) : (
           <Outlet context={{ profile, projects }} />

@@ -10,7 +10,8 @@ import {
   BookOpen,
   Plus,
   Settings,
-  Search
+  Search,
+  MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,6 +36,12 @@ export function LifeOSSidebar({ projects, onCreateProject, className }: LifeOSSi
   const [searchQuery, setSearchQuery] = useState("");
 
   const sidebarItems = [
+    { 
+      name: "Chat", 
+      href: "/dashboard/chat", 
+      icon: MessageSquare,
+      description: "AI conversation" 
+    },
     { 
       name: "Projects", 
       href: "/dashboard/projects", 
