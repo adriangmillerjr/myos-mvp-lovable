@@ -48,7 +48,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ projectId, userId,
       setMessages(
         data.map(msg => ({
           id: msg.id,
-          role: msg.role,
+          role: msg.role as 'user' | 'assistant' | 'system',
           content: msg.content,
           timestamp: new Date(msg.created_at),
           agentId: msg.agent_id
