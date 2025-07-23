@@ -80,7 +80,7 @@ const Index = () => {
             <div className="flex items-center space-x-4">
               <Link to="/dashboard" className="hidden md:inline-flex">
                 <Button className="lifeos-button-primary">
-                  Try It Now
+                  Build My Operating System
                 </Button>
               </Link>
               
@@ -130,7 +130,7 @@ const Index = () => {
                 <div className="px-4 pt-2">
                   <Link to="/dashboard">
                     <Button className="w-full lifeos-button-primary">
-                      Try It Now
+                      Build My Operating System
                     </Button>
                   </Link>
                 </div>
@@ -190,8 +190,43 @@ const Index = () => {
         </div>
       </div>
 
+      {/* NEW: Why We Built This Section */}
+      <div className="border-t border-border bg-surface/30">
+        <div className="lifeos-container py-24">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+              Why We Built This
+            </h2>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-lg text-muted-foreground leading-relaxed space-y-6">
+              <p>
+                Adrian was overwhelmed — juggling properties, content, finances, and life. Every day felt like a maze of decisions, distractions, and delays.
+              </p>
+              
+              <p>
+                Urania, a creative with ADHD, struggled to focus and remember critical tasks. She needed something that could help her stay on track — not just organize, but protect her.
+              </p>
+              
+              <p>
+                That's why they built MyOS AI: to help everyday people reclaim control, clarity, and capacity in a world of noise.
+              </p>
+            </div>
+
+            {/* Placeholder for future profile photos or video */}
+            <div className="flex justify-center pt-8">
+              <Button size="lg" variant="outline" className="h-14 px-8 text-lg">
+                Watch Our Story
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Features Section */}
-      <div id="features" className="border-t border-border bg-surface/30">
+      <div id="features" className="border-t border-border bg-background">
         <div className="lifeos-container py-24">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
@@ -377,7 +412,7 @@ const Index = () => {
         </div>
       </div>
 
-      {/* NEW: Transformation Visual Strip */}
+      {/* Transformation Visual Strip */}
       <div className="border-t border-border bg-background">
         <div className="lifeos-container py-24">
           <div className="text-center mb-16">
@@ -464,7 +499,7 @@ const Index = () => {
         </div>
       </div>
 
-      {/* NEW: Clarity Quiz Preview */}
+      {/* Clarity Quiz Preview */}
       <div className="border-t border-border bg-surface/30">
         <div className="lifeos-container py-24">
           <div className="text-center space-y-6 max-w-4xl mx-auto mb-16">
@@ -534,7 +569,7 @@ const Index = () => {
         </div>
       </div>
 
-      {/* NEW: Join the Inner Circle */}
+      {/* Join the Inner Circle */}
       <div className="border-t border-border bg-accent-soft/50">
         <div className="lifeos-container py-24">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
@@ -576,18 +611,18 @@ const Index = () => {
         </div>
       </div>
 
-      {/* CTA Section */}
+      {/* Updated Final CTA Section */}
       <div className="border-t border-border">
         <div className="lifeos-container py-24 text-center space-y-8">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-            Ready to master your potential?
+            Ready to reboot your potential?
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Join the operating system that aligns your daily actions with your Mount Everest vision.
           </p>
           <Link to="/dashboard">
             <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
-              Start Your Journey
+              Reboot My Life
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
@@ -645,7 +680,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Community / Social */}
+            {/* Community / Social - Updated Newsletter */}
             <div className="space-y-4">
               <h4 className="font-semibold text-foreground">Community</h4>
               <div className="space-y-2">
@@ -667,10 +702,10 @@ const Index = () => {
                 <div className="flex space-x-2">
                   <input
                     type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Your email address"
+                    className="flex-1 px-4 py-2 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
-                  <Button size="sm" className="px-4 lifeos-button-primary">
+                  <Button size="sm" className="px-6 lifeos-button-primary rounded-lg">
                     Subscribe
                   </Button>
                 </div>
