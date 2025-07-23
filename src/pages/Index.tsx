@@ -27,7 +27,7 @@ const Index = () => {
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
               </div>
-              <span className="font-bold text-xl">MyOS AI</span>
+              <span className="font-bold text-xl">MyOS Powered by AI</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -144,6 +144,7 @@ const Index = () => {
       <div className="relative overflow-hidden">
         <div className="lifeos-container py-24 lg:py-32">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
+            <div className="text-2xl md:text-3xl font-bold text-foreground mb-4">MyOS AI</div>
             <OrbitalInterface />
             
             <div className="space-y-6">
