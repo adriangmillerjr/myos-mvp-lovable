@@ -28,7 +28,7 @@ const Index = () => {
                 <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
               </div>
               <div className="flex flex-col items-start leading-tight">
-                <span className="font-bold text-2xl">MyOS</span>
+                <span className="font-bold text-3xl">MyOS</span>
                 <span className="font-bold text-xs -mt-1">Powered by AI</span>
               </div>
             </div>
