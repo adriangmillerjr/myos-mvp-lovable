@@ -27,7 +27,10 @@ const Index = () => {
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
               </div>
-              <span className="font-bold text-xl">MyOS Powered by AI</span>
+              <div className="flex flex-col items-start leading-tight">
+                <span className="font-bold text-2xl">MyOS</span>
+                <span className="font-bold text-xs -mt-1">Powered by AI</span>
+              </div>
             </div>
 
             {/* Desktop Navigation */}
