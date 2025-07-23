@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar, Menu, X, ChevronDown } from "lucide-react";
+import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar, Menu, X, ChevronDown, Mail, Heart, Compass, Mountain, Leaf, Brain, Bot } from "lucide-react";
 import { OrbitalInterface } from "@/components/ui/orbital-interface";
 import { useState } from "react";
 
@@ -182,107 +182,167 @@ const Index = () => {
         <div className="lifeos-container py-24">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-              Unified Productivity Operating System
+              Built for Clarity-Driven Living
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Six integrated modules working together to transform how you think, plan, and execute.
+              Twelve essential tools to reset your focus, reclaim your time, and realign your life.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Projects */}
-            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
-              <CardContent className="p-8">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
-                  <Target className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Projects</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Organize your life into focused workspaces. Each project maintains its own context, tasks, and AI agent configurations.
-                </p>
-                <div className="text-sm font-medium text-primary">
-                  Workspace Management
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* KPI Dashboard */}
-            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
-              <CardContent className="p-8">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
-                  <BarChart3 className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">KPI Dashboard</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Track what matters most. Revenue, content creation, signups, and custom metrics aligned with your Mount Everest vision.
-                </p>
-                <div className="text-sm font-medium text-primary">
-                  Performance Tracking
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Master Tasks */}
-            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
-              <CardContent className="p-8">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
-                  <CheckSquare className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Master Tasks</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Every task scored for Cash Proximity (CPS) and Everest alignment. Focus on what truly moves the needle.
-                </p>
-                <div className="text-sm font-medium text-primary">
-                  Intelligent Prioritization
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Weekly Reports */}
-            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
-              <CardContent className="p-8">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
-                  <Calendar className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Weekly Reports</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  AI-generated insights on task completion, bottlenecks, and strategic recommendations for the week ahead.
-                </p>
-                <div className="text-sm font-medium text-primary">
-                  Strategic Insights
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Journal */}
-            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
-              <CardContent className="p-8">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
-                  <BookOpen className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Journal</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Daily reflections connected to your tasks and goals. Track energy, focus, and personal growth over time.
-                </p>
-                <div className="text-sm font-medium text-primary">
-                  Personal Insights
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* AI Orchestration */}
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-12">
+            {/* Clarity Engine */}
             <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
               <CardContent className="p-8">
                 <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
                   <Zap className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">AI Orchestration</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Multiple specialized AI agents working together. ClarityOS, Sage, Health, and more activate based on context.
+                <h3 className="text-xl font-semibold text-foreground mb-3">Clarity Engine</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  AI-powered focus finder that surfaces what matters most each day
                 </p>
-                <div className="text-sm font-medium text-primary">
-                  Intelligent Assistance
+              </CardContent>
+            </Card>
+
+            {/* Life Dashboard */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <BarChart3 className="h-6 w-6 text-primary-foreground" />
                 </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Life Dashboard</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Visualize your progress across life domains — health, finance, energy & more
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* My Tasks */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <CheckSquare className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">My Tasks</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Smart task manager with AI-assisted prioritization and Do/Delay/Delegate flow
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* My Journal */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <BookOpen className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">My Journal</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Guided reflections and state tracking to declutter your mind
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Calendar Assistant */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Calendar className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Calendar Assistant</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Optimize your schedule based on energy, impact, and clarity zones
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Email Assistant */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Mail className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Email Assistant</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  AI-powered inbox triage: sort by purpose, delete noise, and prep your day
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Motivational Guide */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Heart className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Motivational Guide</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Daily voice-powered nudges from inner guides to keep your mindset strong
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Clarity Quiz */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Compass className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Clarity Quiz</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Personality-based assessment to surface blockers, drivers, and alignment path
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Everest Alignment */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Mountain className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Everest Alignment</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Every task links to your biggest goals — from revenue to relationships
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Life Management */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Leaf className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Life Management</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Track the metrics that matter: joy, habits, time, energy, and alignment
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* MyOS Boardroom */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Brain className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">MyOS Boardroom</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Your inner advisory team — Warrior, Oracle, Sage & more — now powered by AI
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Personal Assistant */}
+            <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6">
+                  <Bot className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Personal Assistant</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  AI orchestration across tasks, messages, meetings — all under one OS
+                </p>
               </CardContent>
             </Card>
           </div>
