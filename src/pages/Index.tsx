@@ -144,7 +144,7 @@ const Index = () => {
       <div className="relative overflow-hidden">
         <div className="lifeos-container py-24 lg:py-32">
           <div className="text-center space-y-6 max-w-4xl mx-auto">
-            <div className="text-2xl md:text-3xl font-bold text-foreground mb-4">MyOS AI</div>
+            <div className="text-4xl md:text-5xl lg:text-7xl font-bold text-foreground mb-4">MyOS AI</div>
             <OrbitalInterface />
             
             <div className="space-y-6">
