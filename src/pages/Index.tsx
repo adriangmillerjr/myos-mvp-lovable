@@ -143,29 +143,42 @@ const Index = () => {
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="lifeos-container py-24 lg:py-32">
-          <div className="text-center space-y-8 max-w-4xl mx-auto">
+          <div className="text-center space-y-6 max-w-4xl mx-auto">
             <OrbitalInterface />
             
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-foreground">
-                MyOS AI
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-foreground">
+                Your Life Deserves a Better Operating System.
               </h1>
               
-              <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Your life deserves a better operating system. Master clarity, execute intelligently, and align every action with your Mount Everest vision.
+              <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Breathe. Reset. Realign. Take back your time, your clarity, and your life.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-              <Link to="/dashboard">
-                <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
-                  Try It Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
+                Build My Operating System
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               <Button size="lg" variant="secondary" className="lifeos-button-secondary h-14 px-8 text-lg">
                 Watch Demo
               </Button>
+            </div>
+            
+            <div className="space-y-4 pt-6">
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                In just minutes, MyOS AI helps you uncover what's beneath the chaos — so you can discover who you were meant to be.
+              </p>
+              
+              <div className="space-y-2">
+                <p className="text-lg md:text-xl font-semibold text-foreground">
+                  Think Less. Win More.
+                </p>
+                <p className="text-sm md:text-base text-muted-foreground">
+                  Because clarity, not hustle, creates results.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -190,6 +203,11 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-12">
+            {/* Core OS Modules Group */}
+            <h3 className="col-span-full text-xl font-bold text-foreground mt-6 mb-2">
+              Your Core OS Modules
+            </h3>
+            
             {/* Clarity Engine */}
             <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
               <CardContent className="p-8">
@@ -242,6 +260,11 @@ const Index = () => {
               </CardContent>
             </Card>
 
+            {/* Smart Productivity Assistants Group */}
+            <h3 className="col-span-full text-xl font-bold text-foreground mt-6 mb-2">
+              Smart Productivity Assistants
+            </h3>
+
             {/* Calendar Assistant */}
             <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
               <CardContent className="p-8">
@@ -293,6 +316,11 @@ const Index = () => {
                 </p>
               </CardContent>
             </Card>
+
+            {/* Clarity Tools & Guides Group */}
+            <h3 className="col-span-full text-xl font-bold text-foreground mt-6 mb-2">
+              Clarity Tools & Guides
+            </h3>
 
             {/* Everest Alignment */}
             <Card className="lifeos-card hover:shadow-medium transition-shadow duration-smooth">
@@ -370,7 +398,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border bg-surface/30">
         <div className="lifeos-container py-16">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Brand & Ethos */}
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
@@ -435,7 +463,7 @@ const Index = () => {
                   Join Our Community
                 </a>
               </div>
-              <div className="space-y-2">
+              <div className="mt-6 space-y-2">
                 <h5 className="font-medium text-foreground">Newsletter Sign-Up</h5>
                 <div className="flex space-x-2">
                   <input
@@ -443,7 +471,7 @@ const Index = () => {
                     placeholder="Enter your email"
                     className="flex-1 px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
-                  <Button size="sm" className="px-4">
+                  <Button size="sm" className="px-4 lifeos-button-primary">
                     Subscribe
                   </Button>
                 </div>
@@ -462,6 +490,17 @@ const Index = () => {
               <br />
               Made with 🧡 in Chicago. Built for humans, Powered By AI.
             </p>
+            <div className="mt-4">
+              <small>
+                <Link to="/privacy" className="text-xs underline mr-2 text-muted-foreground hover:text-primary">
+                  Privacy Policy
+                </Link>
+                {" | "}
+                <Link to="/terms" className="text-xs underline ml-2 text-muted-foreground hover:text-primary">
+                  Terms of Use
+                </Link>
+              </small>
+            </div>
           </div>
         </div>
       </footer>
