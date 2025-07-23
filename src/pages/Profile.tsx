@@ -41,7 +41,11 @@ export default function Profile() {
         industry: '',
         tone: '',
         mount_everest: { vision_statement: '' },
-        non_negotiable_values: []
+        non_negotiable_values: [],
+        auto_template_behavior: 'standard',
+        default_state_map: {},
+        inner_boardroom: {},
+        prime_directive: ''
       });
     } catch (error) {
       console.error('Error:', error);
@@ -62,13 +66,17 @@ export default function Profile() {
         .from('user_profiles')
         .upsert({
           user_id: user.id,
-          user_name: profile.user_name,
-          bio: profile.bio,
-          role: profile.role,
-          industry: profile.industry,
-          tone: profile.tone,
-          mount_everest: profile.mount_everest,
-          non_negotiable_values: profile.non_negotiable_values,
+          user_name: profile.user_name || '',
+          bio: profile.bio || '',
+          role: profile.role || '',
+          industry: profile.industry || '',
+          tone: profile.tone || '',
+          mount_everest: profile.mount_everest || { vision_statement: '' },
+          non_negotiable_values: profile.non_negotiable_values || [],
+          auto_template_behavior: profile.auto_template_behavior || 'standard',
+          default_state_map: profile.default_state_map || {},
+          inner_boardroom: profile.inner_boardroom || {},
+          prime_directive: profile.prime_directive || '',
           updated_at: new Date().toISOString()
         });
 
@@ -207,6 +215,17 @@ export default function Profile() {
                 value={profile?.tone || ''}
                 onChange={(e) => setProfile({ ...profile, tone: e.target.value })}
                 placeholder="e.g., Professional, Casual, Direct, Supportive"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="prime_directive">Prime Directive</Label>
+              <Textarea
+                id="prime_directive"
+                value={profile?.prime_directive || ''}
+                onChange={(e) => setProfile({ ...profile, prime_directive: e.target.value })}
+                placeholder="Your core operating principle or main focus..."
+                rows={2}
               />
             </div>
           </CardContent>

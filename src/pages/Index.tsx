@@ -2,13 +2,145 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar } from "lucide-react";
+import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar, Menu, X, ChevronDown } from "lucide-react";
 import { OrbitalInterface } from "@/components/ui/orbital-interface";
+import { useState } from "react";
 
 const Index = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+
+  const productDropdownItems = [
+    { name: "Features", href: "#features" },
+    { name: "How It Works", href: "#how-it-works" },
+    { name: "Integrations", href: "#integrations" },
+    { name: "Life Dashboard Preview", href: "#dashboard-preview", comingSoon: true },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Sophisticated Hero Section */}
+      {/* Header Navigation */}
+      <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+        <div className="lifeos-container">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+              </div>
+              <span className="font-bold text-xl">MyOS AI</span>
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
+                Home
+              </Link>
+              
+              <div className="relative">
+                <button
+                  onClick={() => setIsProductDropdownOpen(!isProductDropdownOpen)}
+                  className="flex items-center space-x-1 text-sm font-medium hover:text-primary transition-colors"
+                >
+                  <span>Product</span>
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+                
+                {isProductDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-background border border-border rounded-md shadow-lg z-50">
+                    <div className="py-2">
+                      {productDropdownItems.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                          onClick={() => setIsProductDropdownOpen(false)}
+                        >
+                          {item.name}
+                          {item.comingSoon && (
+                            <span className="ml-2 text-xs text-muted-foreground">(coming soon)</span>
+                          )}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <Link to="/clarity-quiz" className="text-sm font-medium hover:text-primary transition-colors">
+                Clarity Quiz
+              </Link>
+              <Link to="/masterclass" className="text-sm font-medium hover:text-primary transition-colors">
+                Masterclass
+              </Link>
+              <Link to="/auth" className="text-sm font-medium hover:text-primary transition-colors">
+                Login
+              </Link>
+            </nav>
+
+            <div className="flex items-center space-x-4">
+              <Link to="/dashboard" className="hidden md:inline-flex">
+                <Button className="lifeos-button-primary">
+                  Try It Now
+                </Button>
+              </Link>
+              
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden p-2 hover:bg-accent rounded-md"
+              >
+                {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden border-t border-border bg-background">
+              <div className="py-4 space-y-2">
+                <Link to="/" className="block px-4 py-2 text-sm font-medium hover:bg-accent rounded-md">
+                  Home
+                </Link>
+                <div className="px-4 py-2">
+                  <div className="text-sm font-medium text-muted-foreground mb-2">Product</div>
+                  <div className="pl-4 space-y-2">
+                    {productDropdownItems.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="block text-sm hover:text-primary transition-colors"
+                      >
+                        {item.name}
+                        {item.comingSoon && (
+                          <span className="ml-2 text-xs text-muted-foreground">(coming soon)</span>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <Link to="/clarity-quiz" className="block px-4 py-2 text-sm font-medium hover:bg-accent rounded-md">
+                  Clarity Quiz
+                </Link>
+                <Link to="/masterclass" className="block px-4 py-2 text-sm font-medium hover:bg-accent rounded-md">
+                  Masterclass
+                </Link>
+                <Link to="/auth" className="block px-4 py-2 text-sm font-medium hover:bg-accent rounded-md">
+                  Login
+                </Link>
+                <div className="px-4 pt-2">
+                  <Link to="/dashboard">
+                    <Button className="w-full lifeos-button-primary">
+                      Try It Now
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="lifeos-container py-24 lg:py-32">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
@@ -16,18 +148,18 @@ const Index = () => {
             
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-foreground">
-                LifeOS.ai
+                MyOS AI
               </h1>
               
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Your personalized AI productivity operating system. Master clarity, execute intelligently, and align every action with your Mount Everest vision.
+                Your life deserves a better operating system. Master clarity, execute intelligently, and align every action with your Mount Everest vision.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Link to="/dashboard">
                 <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
-                  Enter LifeOS.ai
+                  Try It Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -45,8 +177,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Sophisticated Features Section */}
-      <div className="border-t border-border bg-surface/30">
+      {/* Features Section */}
+      <div id="features" className="border-t border-border bg-surface/30">
         <div className="lifeos-container py-24">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
@@ -157,7 +289,7 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Sophisticated CTA Section */}
+      {/* CTA Section */}
       <div className="border-t border-border">
         <div className="lifeos-container py-24 text-center space-y-8">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
@@ -174,6 +306,105 @@ const Index = () => {
           </Link>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-border bg-surface/30">
+        <div className="lifeos-container py-16">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Brand & Ethos */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <div className="w-4 h-4 bg-primary-foreground rounded-full"></div>
+                </div>
+                <span className="font-bold text-xl">MyOS AI</span>
+              </div>
+              <p className="text-muted-foreground">
+                Your life deserves a better operating system.
+              </p>
+              <p className="text-muted-foreground">
+                Built by Geeked Technologies for people who are done with the hustle and ready for aligned living.
+              </p>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Navigation</h4>
+              <div className="space-y-2">
+                <Link to="/" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Home
+                </Link>
+                <a href="#features" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Features
+                </a>
+                <Link to="/clarity-quiz" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Clarity Quiz
+                </Link>
+                <Link to="/masterclass" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Masterclass
+                </Link>
+                <a href="#how-it-works" className="block text-muted-foreground hover:text-primary transition-colors">
+                  How It Works
+                </a>
+                <a href="#dashboard-preview" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Life Dashboard Preview
+                </a>
+                <Link to="/privacy" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Privacy Policy
+                </Link>
+                <Link to="/terms" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Terms of Use
+                </Link>
+              </div>
+            </div>
+
+            {/* Community / Social */}
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Community</h4>
+              <div className="space-y-2">
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Twitter
+                </a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
+                  LinkedIn
+                </a>
+                <a href="https://www.youtube.com/@adriangmillerjr?sub_confirmation=1" className="block text-muted-foreground hover:text-primary transition-colors">
+                  YouTube
+                </a>
+                <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
+                  Join Our Community
+                </a>
+              </div>
+              <div className="space-y-2">
+                <h5 className="font-medium text-foreground">Newsletter Sign-Up</h5>
+                <div className="flex space-x-2">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <Button size="sm" className="px-4">
+                    Subscribe
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="border-t border-border">
+          <div className="lifeos-container py-6 text-center">
+            <p className="text-muted-foreground">
+              © 2025 MyOS AI. Built with clarity + care by Geeked Technologies.
+              <br />
+              Clarity — not hustle — creates results.
+              <br />
+              Made with 🧡 in Chicago. Built for humans, Powered By AI.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

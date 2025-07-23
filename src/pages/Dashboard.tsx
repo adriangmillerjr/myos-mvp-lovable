@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { LifeOSSidebar } from "@/components/dashboard/LifeOSSidebar";
 import { OnboardingFlow } from "@/components/auth/OnboardingFlow";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/dashboard/AppSidebar";
 
 interface Project {
   id: string;
@@ -122,7 +123,7 @@ export default function Dashboard() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="w-8 h-8 bg-primary rounded-full mx-auto animate-pulse"></div>
-          <p className="text-muted-foreground">Loading LifeOS.ai...</p>
+          <p className="text-muted-foreground">Loading MyOS AI...</p>
         </div>
       </div>
     );
@@ -133,25 +134,39 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex">
-      <LifeOSSidebar 
-        projects={projects}
-        onCreateProject={handleCreateProject}
-      />
-      
-      <main className="flex-1 overflow-hidden">
-        {isChat && user && profile ? (
-          <ChatInterface 
-            projectId={params.projectId} 
-            userId={user.id}
-            userProfile={profile}
-            projects={projects}
-            onCreateProject={handleCreateProject}
-          />
-        ) : (
-          <Outlet context={{ profile, projects }} />
-        )}
-      </main>
-    </div>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar 
+          projects={projects}
+          onCreateProject={handleCreateProject}
+        />
+        
+        <SidebarInset>
+          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+            <SidebarTrigger className="-ml-1" />
+            <div className="flex items-center gap-2 px-4">
+              <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                <div className="w-3 h-3 bg-primary-foreground rounded-full"></div>
+              </div>
+              <span className="font-semibold">MyOS AI</span>
+            </div>
+          </header>
+          
+          <main className="flex-1 overflow-hidden">
+            {isChat && user && profile ? (
+              <ChatInterface 
+                projectId={params.projectId} 
+                userId={user.id}
+                userProfile={profile}
+                projects={projects}
+                onCreateProject={handleCreateProject}
+              />
+            ) : (
+              <Outlet context={{ profile, projects }} />
+            )}
+          </main>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 }
