@@ -1,8 +1,8 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar, Menu, X, ChevronDown, Mail, Heart, Compass, Mountain, Leaf, Brain, Bot } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { BarChart3, Target, Zap, ArrowRight, CheckSquare, BookOpen, Calendar, Menu, X, ChevronDown, Mail, Heart, Compass, Mountain, Leaf, Brain, Bot, MessageSquare, Clock, Sparkles, Users, Star, Crown } from "lucide-react";
 import { OrbitalInterface } from "@/components/ui/orbital-interface";
 import { useState } from "react";
 
@@ -373,6 +373,205 @@ const Index = () => {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW: Transformation Visual Strip */}
+      <div className="border-t border-border bg-background">
+        <div className="lifeos-container py-24">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              See how MyOS AI turns this → into this
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto">
+            {/* Chaos Side */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-muted-foreground text-center mb-8">Before: Chaos</h3>
+              
+              <div className="space-y-4">
+                <Card className="bg-destructive/10 border-destructive/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <Calendar className="h-5 w-5 text-destructive" />
+                      <span className="font-medium text-foreground">Messy Google Calendar</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Back-to-back meetings with no breathing room</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-warning/10 border-warning/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <Mail className="h-5 w-5 text-warning" />
+                      <span className="font-medium text-foreground">10k+ unread emails</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Inbox anxiety and decision paralysis</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-muted/50 border-muted">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <MessageSquare className="h-5 w-5 text-muted-foreground" />
+                      <span className="font-medium text-foreground">Post-it notes everywhere</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">"What was I supposed to do again?" moments</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Clarity Side */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-primary text-center mb-8">After: Clarity</h3>
+              
+              <div className="space-y-4">
+                <Card className="bg-primary/10 border-primary/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <BarChart3 className="h-5 w-5 text-primary" />
+                      <span className="font-medium text-foreground">Aligned dashboard</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Everything you need, nothing you don't</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-success/10 border-success/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <Target className="h-5 w-5 text-success" />
+                      <span className="font-medium text-foreground">Daily priorities clearly surfaced</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">"Let's win today" mindset</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-accent/10 border-accent/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <BookOpen className="h-5 w-5 text-accent-foreground" />
+                      <span className="font-medium text-foreground">Simple journal reflection</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Mental clarity through guided thought</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW: Clarity Quiz Preview */}
+      <div className="border-t border-border bg-surface/30">
+        <div className="lifeos-container py-24">
+          <div className="text-center space-y-6 max-w-4xl mx-auto mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+              You're Not Broken — You've Just Been Operating Without a System.
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Let MyOS AI meet you where you are. In minutes, we'll uncover what's really draining you — and show you how to take your life back.
+            </p>
+          </div>
+
+          {/* Quiz Preview */}
+          <div className="max-w-2xl mx-auto space-y-8">
+            <div className="space-y-6">
+              <Card className="lifeos-card">
+                <CardContent className="p-8">
+                  <h3 className="text-lg font-semibold text-foreground mb-4">
+                    What's draining most of your energy right now?
+                  </h3>
+                  <RadioGroup className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="overwhelm" />
+                      <span className="text-muted-foreground">Constant overwhelm and decision fatigue</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="procrastination" />
+                      <span className="text-muted-foreground">Procrastination and lack of focus</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="clarity" />
+                      <span className="text-muted-foreground">Not knowing what really matters</span>
+                    </div>
+                  </RadioGroup>
+                </CardContent>
+              </Card>
+
+              <Card className="lifeos-card">
+                <CardContent className="p-8">
+                  <h3 className="text-lg font-semibold text-foreground mb-4">
+                    Where do you feel most stuck?
+                  </h3>
+                  <RadioGroup className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="goals" />
+                      <span className="text-muted-foreground">Setting and achieving meaningful goals</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="habits" />
+                      <span className="text-muted-foreground">Building consistent daily habits</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="balance" />
+                      <span className="text-muted-foreground">Balancing work and personal life</span>
+                    </div>
+                  </RadioGroup>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
+                Begin Your Reset
+                <Sparkles className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW: Join the Inner Circle */}
+      <div className="border-t border-border bg-accent-soft/50">
+        <div className="lifeos-container py-24">
+          <div className="text-center space-y-8 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <Crown className="h-8 w-8 text-primary" />
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+                Join the Inner Circle
+              </h2>
+            </div>
+            
+            <p className="text-xl text-muted-foreground">
+              Be one of the first 300 visionaries to shape the future of life clarity.
+            </p>
+            
+            <div className="max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                The Inner Circle is our private founding group. You'll get exclusive access to premium GPTs, early features, and member-only strategy sessions — and help shape the next evolution of MyOS AI.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center space-y-4">
+              <Button size="lg" className="lifeos-button-primary h-14 px-8 text-lg font-medium">
+                Apply to Join
+                <Users className="ml-2 h-5 w-5" />
+              </Button>
+              
+              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                <div className="flex items-center space-x-1">
+                  <Star className="h-4 w-4" />
+                  <span>Limit 300 members</span>
+                </div>
+                <span>•</span>
+                <span>$500 early access seat</span>
+                <span>•</span>
+                <span>Includes shared upside reward</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
