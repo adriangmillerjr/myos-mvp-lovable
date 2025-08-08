@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Whisper from '@/components/shared/Whisper';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -102,7 +103,6 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
     setIsStreaming(true);
 
     try {
-      // Save user message to database
       await supabase.from('chat_messages').insert({
         user_id: userId,
         project_id: currentProjectId || null,
@@ -110,10 +110,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         content: userMessage.content
       });
 
-      // Enhanced system prompt with context
       const contextualPrompt = generateContextualPrompt(userProfile, currentProjectId, projects);
-      
-      // Simulate streaming response
       await simulateStreamingResponse(userMessage.content, contextualPrompt);
     } catch (error) {
       console.error('Error sending message:', error);
@@ -132,10 +129,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       agent_id: `LifeOS_${selectedModel}`
     };
 
-    // Simulate typing delay
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    // Save AI response to database
     await supabase.from('chat_messages').insert({
       user_id: userId,
       project_id: currentProjectId || null,
@@ -150,7 +145,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const generateContextualResponse = (input: string, profile: any, projectId?: string, projects?: Project[]) => {
     const currentProject = projects?.find(p => p.id === projectId);
     const projectContext = currentProject ? `in your "${currentProject.name}" project` : "in your global workspace";
-    
+
     return `Working ${projectContext}, I understand you're focused on: "${input}"
 
 Based on your LifeOS profile:
@@ -170,7 +165,7 @@ How does this align with your Mount Everest vision? What's the next highest-valu
   const generateContextualPrompt = (profile: any, projectId?: string, projects?: Project[]) => {
     const currentProject = projects?.find(p => p.id === projectId);
     const projectContext = currentProject ? ` working on "${currentProject.name}"` : ' in global context';
-    
+
     return `You are LifeOS.ai, an AI-powered productivity operating system. 
 User: ${profile?.user_name}${projectContext}
 Model: ${selectedModel}
@@ -187,7 +182,6 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
 
   const handleProjectSelect = (projectId: string | undefined) => {
     setCurrentProjectId(projectId);
-    // Navigate to the appropriate chat route
     const newPath = projectId ? `/dashboard/chat/${projectId}` : '/dashboard/chat';
     window.history.pushState({}, '', newPath);
   };
@@ -203,7 +197,6 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
 
   return (
     <div className="flex h-full bg-background">
-      {/* Project Sidebar */}
       <ProjectSidebar
         projects={projects}
         selectedProjectId={currentProjectId}
@@ -211,9 +204,7 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
         onCreateProject={onCreateProject}
       />
 
-      {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
-        {/* Chat Header */}
         <div className="p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -229,7 +220,6 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
                 </div>
               </div>
             </div>
-            
             <ModelSelector
               selectedModel={selectedModel}
               onModelChange={setSelectedModel}
@@ -238,7 +228,6 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
           </div>
         </div>
 
-        {/* Messages Area */}
         <ScrollArea className="flex-1" ref={scrollAreaRef}>
           <div className="max-w-4xl mx-auto p-6 space-y-6">
             {messages.length === 0 && (
@@ -257,11 +246,11 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
                 </div>
               </div>
             )}
-            
+
             {messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
             ))}
-            
+
             {isLoading && (
               <div className="flex gap-4">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mt-1">
@@ -281,7 +270,6 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
           </div>
         </ScrollArea>
 
-        {/* Input Area */}
         <div className="p-4 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="max-w-4xl mx-auto">
             <div className="flex gap-2 items-end">
@@ -295,12 +283,12 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
                   className="min-h-[44px] resize-none border-border bg-background"
                 />
               </div>
-              
-              <VoiceInput
-                onTranscript={handleVoiceTranscript}
-                disabled={isLoading}
+
+              <Whisper
+                onFinalTranscript={(text) => setInput(text)}
+                autoSubmit={false}
               />
-              
+
               <Button 
                 onClick={sendMessage} 
                 disabled={isLoading || !input.trim()}
@@ -310,7 +298,7 @@ Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            
+
             <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
               <span>
                 Press Enter to send • Context: {currentProject ? `${currentProject.name} project` : 'Global workspace'}

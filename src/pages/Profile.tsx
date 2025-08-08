@@ -1,18 +1,19 @@
-
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { User, Mail, Briefcase, Target, Save } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
+import PersonalInfoTab from "@/components/profile/tabs/PersonalInfoTab";
+import MountEverestTab from "@/components/profile/tabs/MountEverestTab";
+import CoreValuesTab from "@/components/profile/tabs/CoreValuesTab";
+import InnerBoardroomTab from "@/components/profile/tabs/InnerBoardroomTab";
+import BehavioralProfileTab from "@/components/profile/tabs/BehavioralProfileTab";
+import GuidesTab from "@/components/profile/tabs/GuidesTab";
 import { toast } from "sonner";
 
-export default function Profile() {
+export default function ProfilePage() {
+  const [activeTab, setActiveTab] = useState("personal");
   const [profile, setProfile] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     loadProfile();
@@ -24,31 +25,32 @@ export default function Profile() {
       if (!user) return;
 
       const { data, error } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('user_id', user.id)
+        .from("user_profiles")
+        .select("*")
+        .eq("user_id", user.id)
         .single();
 
-      if (error && error.code !== 'PGRST116') {
-        console.error('Error loading profile:', error);
-        return;
-      }
+      if (error && error.code !== "PGRST116") throw error;
 
-      setProfile(data || {
-        user_name: '',
-        bio: '',
-        role: '',
-        industry: '',
-        tone: '',
-        mount_everest: { vision_statement: '' },
-        non_negotiable_values: [],
-        auto_template_behavior: 'standard',
-        default_state_map: {},
-        inner_boardroom: {},
-        prime_directive: ''
-      });
-    } catch (error) {
-      console.error('Error:', error);
+      setProfile(
+        data || {
+          user_name: "",
+          bio: "",
+          role: "",
+          industry: "",
+          tone: "",
+          mount_everest: { vision_statement: "" },
+          non_negotiable_values: [],
+          auto_template_behavior: "standard",
+          default_state_map: {},
+          inner_boardroom: {},
+          prime_directive: "",
+          behavioral_profile: {},
+          guides: []
+        }
+      );
+    } catch (err) {
+      console.error("Error loading profile:", err);
     } finally {
       setIsLoading(false);
     }
@@ -56,194 +58,66 @@ export default function Profile() {
 
   const handleSave = async () => {
     if (!profile) return;
-    
+
     setIsSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      const { error } = await supabase
-        .from('user_profiles')
-        .upsert({
-          user_id: user.id,
-          user_name: profile.user_name || '',
-          bio: profile.bio || '',
-          role: profile.role || '',
-          industry: profile.industry || '',
-          tone: profile.tone || '',
-          mount_everest: profile.mount_everest || { vision_statement: '' },
-          non_negotiable_values: profile.non_negotiable_values || [],
-          auto_template_behavior: profile.auto_template_behavior || 'standard',
-          default_state_map: profile.default_state_map || {},
-          inner_boardroom: profile.inner_boardroom || {},
-          prime_directive: profile.prime_directive || '',
-          updated_at: new Date().toISOString()
-        });
+      const { error } = await supabase.from("user_profiles").upsert({
+        user_id: user.id,
+        ...profile,
+        updated_at: new Date().toISOString()
+      });
 
       if (error) throw error;
-      toast.success("Profile updated successfully!");
-    } catch (error) {
-      console.error('Error saving profile:', error);
-      toast.error("Failed to update profile");
+
+      toast.success("Profile saved successfully");
+    } catch (err) {
+      console.error("Save error:", err);
+      toast.error("Failed to save profile");
     } finally {
       setIsSaving(false);
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 bg-primary rounded-full mx-auto animate-pulse"></div>
-          <p className="text-muted-foreground">Loading profile...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 p-6">
-      <div className="max-w-2xl mx-auto space-y-6">
-        <div className="flex items-center gap-3 mb-8">
-          <User className="w-8 h-8 text-primary" />
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Profile</h1>
-            <p className="text-muted-foreground">Manage your account information and preferences</p>
-          </div>
-        </div>
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      <h1 className="text-2xl font-semibold mb-4">MyOS Profile</h1>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid grid-cols-4 gap-2 mb-4">
+          <TabsTrigger value="personal">Personal Info</TabsTrigger>
+          <TabsTrigger value="everest">Mount Everest</TabsTrigger>
+          <TabsTrigger value="values">Core Values</TabsTrigger>
+          <TabsTrigger value="boardroom">Inner Boardroom</TabsTrigger>
+          <TabsTrigger value="behavioral">Behavioral Profile</TabsTrigger>
+          <TabsTrigger value="guides">Guides + Advisors</TabsTrigger>
+        </TabsList>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <User className="w-5 h-5" />
-              Personal Information
-            </CardTitle>
-            <CardDescription>
-              Update your personal details and how you'd like to be addressed
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  value={profile?.user_name || ''}
-                  onChange={(e) => setProfile({ ...profile, user_name: e.target.value })}
-                  placeholder="Your name"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="role">Role/Title</Label>
-                <Input
-                  id="role"
-                  value={profile?.role || ''}
-                  onChange={(e) => setProfile({ ...profile, role: e.target.value })}
-                  placeholder="e.g., Founder, CEO, Developer"
-                />
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="industry">Industry</Label>
-              <Input
-                id="industry"
-                value={profile?.industry || ''}
-                onChange={(e) => setProfile({ ...profile, industry: e.target.value })}
-                placeholder="e.g., Technology, Healthcare, Finance"
-              />
-            </div>
+        <TabsContent value="personal">
+          <PersonalInfoTab profile={profile} setProfile={setProfile} isSaving={isSaving} onSave={handleSave} />
+        </TabsContent>
 
-            <div className="space-y-2">
-              <Label htmlFor="bio">Bio</Label>
-              <Textarea
-                id="bio"
-                value={profile?.bio || ''}
-                onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
-                placeholder="Tell us about yourself and your work..."
-                rows={3}
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <TabsContent value="everest">
+          <MountEverestTab profile={profile} setProfile={setProfile} isSaving={isSaving} onSave={handleSave} />
+        </TabsContent>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="w-5 h-5" />
-              Vision & Values
-            </CardTitle>
-            <CardDescription>
-              Define your Mount Everest vision and core principles
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="vision">Mount Everest Vision</Label>
-              <Textarea
-                id="vision"
-                value={profile?.mount_everest?.vision_statement || ''}
-                onChange={(e) => setProfile({ 
-                  ...profile, 
-                  mount_everest: { 
-                    ...profile?.mount_everest, 
-                    vision_statement: e.target.value 
-                  }
-                })}
-                placeholder="Your ultimate goal or vision for the future..."
-                rows={3}
-              />
-            </div>
+        <TabsContent value="values">
+          <CoreValuesTab profile={profile} setProfile={setProfile} isSaving={isSaving} onSave={handleSave} />
+        </TabsContent>
 
-            <div className="space-y-2">
-              <Label htmlFor="values">Core Values (comma-separated)</Label>
-              <Input
-                id="values"
-                value={profile?.non_negotiable_values?.join(', ') || ''}
-                onChange={(e) => setProfile({ 
-                  ...profile, 
-                  non_negotiable_values: e.target.value.split(',').map(v => v.trim()).filter(Boolean)
-                })}
-                placeholder="e.g., Integrity, Innovation, Family, Growth"
-              />
-            </div>
+        <TabsContent value="boardroom">
+          <InnerBoardroomTab profile={profile} setProfile={setProfile} isSaving={isSaving} onSave={handleSave} />
+        </TabsContent>
 
-            <div className="space-y-2">
-              <Label htmlFor="tone">Communication Tone</Label>
-              <Input
-                id="tone"
-                value={profile?.tone || ''}
-                onChange={(e) => setProfile({ ...profile, tone: e.target.value })}
-                placeholder="e.g., Professional, Casual, Direct, Supportive"
-              />
-            </div>
+        <TabsContent value="behavioral">
+          <BehavioralProfileTab profile={profile} setProfile={setProfile} isSaving={isSaving} onSave={handleSave} />
+        </TabsContent>
 
-            <div className="space-y-2">
-              <Label htmlFor="prime_directive">Prime Directive</Label>
-              <Textarea
-                id="prime_directive"
-                value={profile?.prime_directive || ''}
-                onChange={(e) => setProfile({ ...profile, prime_directive: e.target.value })}
-                placeholder="Your core operating principle or main focus..."
-                rows={2}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="flex justify-end">
-          <Button onClick={handleSave} disabled={isSaving} className="min-w-[120px]">
-            {isSaving ? (
-              <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <>
-                <Save className="w-4 h-4 mr-2" />
-                Save Changes
-              </>
-            )}
-          </Button>
-        </div>
-      </div>
+        <TabsContent value="guides">
+          <GuidesTab profile={profile} setProfile={setProfile} isSaving={isSaving} onSave={handleSave} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
