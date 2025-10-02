@@ -1,315 +1,55 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Whisper from '@/components/shared/Whisper';
+import React, { useEffect, useRef, useState } from "react";
+import { ChatMessage } from "./ChatMessage";
+import { ChatSidebar } from "@/components/sidebar/ChatSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Bot, Sparkles } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { ChatMessage } from "./ChatMessage";
-import { ModelSelector } from "./ModelSelector";
-import { VoiceInput } from "./VoiceInput";
-import { ProjectSidebar } from "./ProjectSidebar";
-
-interface Message {
-  id: string;
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-  timestamp: Date;
-  agent_id?: string;
-}
-
-type Model = 'gpt-4o' | 'gpt-4' | 'gpt-3.5-turbo';
-
-interface Project {
-  id: string;
-  name: string;
-  color: string;
-  messageCount?: number;
-}
-
-interface ChatInterfaceProps {
-  projectId?: string;
-  userId: string;
-  userProfile: any;
-  projects: Project[];
-  onCreateProject: () => void;
-}
-
-export const ChatInterface: React.FC<ChatInterfaceProps> = ({ 
-  projectId: initialProjectId, 
-  userId, 
-  userProfile, 
-  projects,
-  onCreateProject 
-}) => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState<Model>('gpt-4o');
-  const [currentProjectId, setCurrentProjectId] = useState<string | undefined>(initialProjectId);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    loadMessages();
-  }, [currentProjectId]);
-
-  useEffect(() => {
-    setCurrentProjectId(initialProjectId);
-  }, [initialProjectId]);
-
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  const loadMessages = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('chat_messages')
-        .select('*')
-        .eq('user_id', userId)
-        .eq('project_id', currentProjectId || null)
-        .order('created_at', { ascending: true });
-
-      if (error) throw error;
-
-      setMessages(data?.map(msg => ({
-        id: msg.id,
-        role: msg.role as 'user' | 'assistant' | 'system',
-        content: msg.content,
-        timestamp: new Date(msg.created_at),
-        agent_id: msg.agent_id
-      })) || []);
-    } catch (error) {
-      console.error('Error loading messages:', error);
-    }
-  };
-
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: 'user',
-      content: input.trim(),
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
-    setIsStreaming(true);
-
-    try {
-      await supabase.from('chat_messages').insert({
-        user_id: userId,
-        project_id: currentProjectId || null,
-        role: 'user',
-        content: userMessage.content
-      });
-
-      const contextualPrompt = generateContextualPrompt(userProfile, currentProjectId, projects);
-      await simulateStreamingResponse(userMessage.content, contextualPrompt);
-    } catch (error) {
-      console.error('Error sending message:', error);
-    } finally {
-      setIsLoading(false);
-      setIsStreaming(false);
-    }
-  };
-
-  const simulateStreamingResponse = async (userInput: string, systemPrompt: string) => {
-    const aiResponse: Message = {
-      id: (Date.now() + 1).toString(),
-      role: 'assistant',
-      content: generateContextualResponse(userInput, userProfile, currentProjectId, projects),
-      timestamp: new Date(),
-      agent_id: `LifeOS_${selectedModel}`
-    };
-
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    await supabase.from('chat_messages').insert({
-      user_id: userId,
-      project_id: currentProjectId || null,
-      role: 'assistant',
-      content: aiResponse.content,
-      agent_id: aiResponse.agent_id
-    });
-
-    setMessages(prev => [...prev, aiResponse]);
-  };
-
-  const generateContextualResponse = (input: string, profile: any, projectId?: string, projects?: Project[]) => {
-    const currentProject = projects?.find(p => p.id === projectId);
-    const projectContext = currentProject ? `in your "${currentProject.name}" project` : "in your global workspace";
-
-    return `Working ${projectContext}, I understand you're focused on: "${input}"
-
-Based on your LifeOS profile:
-- Vision: ${profile?.mount_everest?.vision_statement || 'Not yet defined'}
-- Core Values: ${profile?.non_negotiable_values?.join(', ') || 'Not specified'}
-- Current Role: ${profile?.role || 'Professional'}
-
-Let me apply the CTRL + AI + DEL framework:
-
-**CTRL** - What's in your direct control today regarding this task?
-**AI** - What aspects can you automate or systematize?
-**DEL** - What can you delegate or eliminate entirely?
-
-How does this align with your Mount Everest vision? What's the next highest-value action you can take?`;
-  };
-
-  const generateContextualPrompt = (profile: any, projectId?: string, projects?: Project[]) => {
-    const currentProject = projects?.find(p => p.id === projectId);
-    const projectContext = currentProject ? ` working on "${currentProject.name}"` : ' in global context';
-
-    return `You are LifeOS.ai, an AI-powered productivity operating system. 
-User: ${profile?.user_name}${projectContext}
-Model: ${selectedModel}
-Everest Vision: "${profile?.mount_everest?.vision_statement || 'Undefined'}"
-Core Values: ${profile?.non_negotiable_values?.join(', ') || 'Not specified'}
-Tone: ${profile?.tone || 'Professional and direct'}
-
-Apply the CTRL + AI + DEL framework and guide toward action and alignment.`;
-  };
-
-  const handleVoiceTranscript = (transcript: string) => {
-    setInput(transcript);
-  };
-
-  const handleProjectSelect = (projectId: string | undefined) => {
-    setCurrentProjectId(projectId);
-    const newPath = projectId ? `/dashboard/chat/${projectId}` : '/dashboard/chat';
-    window.history.pushState({}, '', newPath);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
-
-  const currentProject = projects.find(p => p.id === currentProjectId);
-
-  return (
-    <div className="flex h-full bg-background">
-      <ProjectSidebar
-        projects={projects}
-        selectedProjectId={currentProjectId}
-        onProjectSelect={handleProjectSelect}
-        onCreateProject={onCreateProject}
-      />
-
-      <div className="flex-1 flex flex-col">
-        <div className="p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-primary" />
-                <div>
-                  <h1 className="text-lg font-semibold text-foreground">
-                    {currentProject ? currentProject.name : 'Chat'}
-                  </h1>
-                  <p className="text-sm text-muted-foreground">
-                    AI-powered clarity and productivity guidance
-                  </p>
-                </div>
-              </div>
-            </div>
-            <ModelSelector
-              selectedModel={selectedModel}
-              onModelChange={setSelectedModel}
-              disabled={isLoading}
-            />
-          </div>
-        </div>
-
-        <ScrollArea className="flex-1" ref={scrollAreaRef}>
-          <div className="max-w-4xl mx-auto p-6 space-y-6">
-            {messages.length === 0 && (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Bot className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  How can I help you today?
-                </h3>
-                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                  Start a conversation to unlock clarity and accelerate your progress.
-                </p>
-                <div className="text-sm text-muted-foreground">
-                  Powered by {selectedModel} • Context-aware responses
-                </div>
-              </div>
-            )}
-
-            {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
-
-            {isLoading && (
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mt-1">
-                  <Bot className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1 max-w-3xl">
-                  <div className="rounded-lg px-4 py-3 bg-chat-assistant border border-border shadow-soft">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce delay-100"></div>
-                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce delay-200"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </ScrollArea>
-
-        <div className="p-4 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex gap-2 items-end">
-              <div className="flex-1 min-w-0">
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Message LifeOS.ai..."
-                  disabled={isLoading}
-                  className="min-h-[44px] resize-none border-border bg-background"
-                />
-              </div>
-
-              <Whisper
-                onFinalTranscript={(text) => setInput(text)}
-                autoSubmit={false}
-              />
-
-              <Button 
-                onClick={sendMessage} 
-                disabled={isLoading || !input.trim()}
-                size="icon"
-                className="w-11 h-11"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
-
-            <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
-              <span>
-                Press Enter to send • Context: {currentProject ? `${currentProject.name} project` : 'Global workspace'}
-              </span>
-              {isStreaming && (
-                <span className="text-primary">Generating response...</span>
-              )}
-            </div>
+import { Send, Sparkles, Plus, Trash2 } from "lucide-react";
+import type { ChatListItem } from "@/components/sidebar/ChatSidebar";
+export interface Message { id: string; role: "user"|"assistant"|"system"; content: string; createdAt: string; }
+export interface ChatInterfaceProps { userName?: string; onNewChat?:()=>void; onClearChat?:()=>void; onSend?:(content:string)=>Promise<Message|void>; initialMessages?: Message[]; chats?: ChatListItem[]; onSelectChat?:(id?:string)=>void; activeChatId?: string; }
+export function ChatInterface({userName,onNewChat,onClearChat,onSend,initialMessages=[],chats=[],onSelectChat,activeChatId}:ChatInterfaceProps){
+  const [messages,setMessages]=useState<Message[]>(initialMessages);
+  const [input,setInput]=useState(''); const [isSending,setIsSending]=useState(false); const scrollerRef=useRef<HTMLDivElement>(null);
+  useEffect(()=>{const el=scrollerRef.current;if(el) el.scrollTo({top:el.scrollHeight,behavior:'smooth'});},[messages,isSending]);
+  async function handleSend(){ if(!input.trim()||isSending) return; const userMsg:Message={id:String(Date.now()),role:'user',content:input.trim(),createdAt:new Date().toISOString()}; setMessages(p=>[...p,userMsg]); setInput(''); setIsSending(true);
+    try{ if(onSend){ const res=await onSend(userMsg.content); if(res) setMessages(p=>[...p,res]); } else { const demo:Message={id:String(Date.now()+1),role:'assistant',content:"Here is a code example:\n\n```ts\nconsole.log('Hello from MyOS MVP');\n```",createdAt:new Date().toISOString()}; await new Promise(r=>setTimeout(r,600)); setMessages(p=>[...p,demo]); } } finally{ setIsSending(false);} }
+  function key(e:React.KeyboardEvent<HTMLInputElement>){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); handleSend(); }}
+  return (<div className="flex h-full min-h-[100vh] w-full bg-background text-foreground">
+    <aside className="hidden md:block w-72 border-r border-border"><ChatSidebar chats={chats} onCreateChat={onNewChat} onSelectChat={onSelectChat} activeId={activeChatId}/></aside>
+    <main className="flex-1 flex flex-col">
+      <div className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary"/><span className="font-medium">Chat</span></div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={onClearChat} aria-label="Clear chat"><Trash2 className="h-4 w-4 mr-1"/> Clear</Button>
+            <Button variant="default" size="sm" onClick={onNewChat} aria-label="New chat"><Plus className="h-4 w-4 mr-1"/> New</Button>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+      <div className="flex-1"><ScrollArea className="h-full">
+        <div ref={scrollerRef} className="max-w-3xl mx-auto px-4 py-6 space-y-6">
+          {messages.length===0 && (<div className="text-center py-16 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 shadow-sm"><Sparkles className="h-8 w-8 text-primary"/></div>
+            <h2 className="text-xl font-semibold mb-1">How can we help, {userName||'friend'}?</h2>
+            <p className="text-sm text-muted-foreground">Ask anything. Enter to send • Shift+Enter for newline.</p>
+          </div>)}
+          {messages.map(m=>(<div key={m.id} className="animate-in fade-in slide-in-from-bottom-1 duration-200"><ChatMessage message={m}/></div>))}
+          {isSending && (<div className="flex gap-3"><div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center mt-1"><Sparkles className="h-4 w-4 text-primary animate-pulse"/></div>
+            <div className="rounded-lg px-4 py-3 bg-muted border border-border"><div className="flex gap-1">
+              <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce"></span>
+              <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce delay-100"></span>
+              <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce delay-200"></span>
+            </div></div></div>)}
+        </div></ScrollArea></div>
+      <div className="border-t border-border bg-background/80 backdrop-blur-sm">
+        <div className="max-w-3xl mx-auto px-4 py-3">
+          <div className="flex gap-2">
+            <Input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={key} placeholder="Message MyOS..." className="min-h-[44px]" aria-label="Chat input"/>
+            <Button onClick={handleSend} disabled={isSending||!input.trim()} aria-label="Send message" className="w-12"><Send className="h-4 w-4"/></Button>
+          </div>
+          <div className="mt-2 text-xs text-muted-foreground">Enter to send • Shift+Enter for newline</div>
+        </div>
+      </div>
+    </main></div>);
+}
